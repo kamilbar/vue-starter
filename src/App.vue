@@ -10,11 +10,16 @@
 	<button @click="alertMyEmail()">Wyświetl mój e-mail w alercie</button>
   </div>
 -->
-  <div>
+  <div v-if="authenticated">
+	Witaj {{ email }}!
+	<br><br>
+	<a @click="logOut">Wyloguj</a>
+  </div>
+  <div v-else>
 	<h1> Witaj w systemie do zapisów na zajęcia</h1>
 	Zaloguj się e-mailem 
 	<input type="email" v-model="email">
-	<button>Wchodzę</button>
+	<button @click="logIn">Wchodzę</button>
   </div>
 </template>
 
@@ -23,18 +28,33 @@
 export default {
 	data() {
 	  return {
+		authenticated: false,
 		email: 'Twój email',
 		password: ''
 	  };
 	},
 	methods: {
-		alertMyEmail() {
-			alert(this.email);
+//		alertMyEmail() {
+//			alert(this.email);
+//		},
+		
+		logIn() {
+			this.authenticated = true;
+		},
+		logOut(){
+			this.authenticated = false;
+			this.email = "";
 		}
 	}
 }
 </script>
 
 <style>
-
+	a{
+		color: green;
+	}
+	a:hover{
+		color: red;
+		text-decoration: underline;
+	}
 </style>
